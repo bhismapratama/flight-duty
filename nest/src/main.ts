@@ -15,7 +15,7 @@ async function bootstrap() {
   configureApp(app);
 
   const config = app.get<ConfigType<typeof appConfig>>(appConfig.KEY);
-  await app.listen(config.port, '0.0.0.0');
+  await app.listen(config.port, config.host);
 
   Logger.log(`API on ${config.baseUrl} (docs: /docs, today: ${config.today})`, 'Bootstrap');
 }

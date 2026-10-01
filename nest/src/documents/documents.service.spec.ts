@@ -17,6 +17,7 @@ describe('toExpiryStatus', () => {
 describe('DocumentsService', () => {
   const service = new DocumentsService(new DataService(), {
     port: 4000,
+    host: '0.0.0.0',
     baseUrl: 'http://localhost:4000',
     today: '2026-05-15',
     corsOrigins: true,

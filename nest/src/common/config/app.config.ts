@@ -4,12 +4,14 @@ import { isIsoDate } from '@utils';
 
 export const DEFAULT_TODAY = '2026-05-15';
 export const DEFAULT_PORT = 4000;
+export const DEFAULT_HOST = '0.0.0.0';
 
 export const appConfig = registerAs('app', () => {
   const port = Number(process.env.PORT ?? DEFAULT_PORT);
 
   return {
     port,
+    host: process.env.HOST ?? DEFAULT_HOST,
     baseUrl: (process.env.BASE_URL ?? `http://localhost:${port}`).replace(/\/$/, ''),
     today: process.env.APP_TODAY ?? DEFAULT_TODAY,
     corsOrigins: parseOrigins(process.env.CORS_ORIGIN),

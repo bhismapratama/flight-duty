@@ -5,8 +5,18 @@ import { ConfigModule, type ConfigType } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule, type JwtModuleOptions, type JwtSignOptions } from '@nestjs/jwt';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ThrottlerModule } from '@nestjs/throttler';
 
-import { JwtGuard, appConfig, jwtConfig, validateEnv } from '@common';
+import {
+  ClientIpThrottlerGuard,
+  JwtGuard,
+  THROTTLE_DEFAULT_LIMIT,
+  THROTTLE_MESSAGE,
+  THROTTLE_TTL_MS,
+  appConfig,
+  jwtConfig,
+  validateEnv,
+} from '@common';
 import { DataModule } from '@infra';
 
 import { AppController } from './app.controller.js';
@@ -31,6 +41,10 @@ import { SchedulesModule } from './schedules/schedules.module.js';
         signOptions: { expiresIn: jwt.expiresIn as JwtSignOptions['expiresIn'] },
       }),
     }),
+    ThrottlerModule.forRoot({
+      throttlers: [{ ttl: THROTTLE_TTL_MS, limit: THROTTLE_DEFAULT_LIMIT }],
+      errorMessage: THROTTLE_MESSAGE,
+    }),
     ServeStaticModule.forRoot({
       rootPath: join(import.meta.dirname, '..', 'public'),
       serveRoot: '/static',
@@ -44,6 +58,9 @@ import { SchedulesModule } from './schedules/schedules.module.js';
     SchedulesModule,
   ],
   controllers: [AppController],
-  providers: [{ provide: APP_GUARD, useClass: JwtGuard }],
+  providers: [
+    { provide: APP_GUARD, useClass: ClientIpThrottlerGuard },
+    { provide: APP_GUARD, useClass: JwtGuard },
+  ],
 })
 export class AppModule {}

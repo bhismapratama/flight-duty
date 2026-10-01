@@ -157,4 +157,35 @@ describe('Susi Air API (e2e)', () => {
 
     expect(response.body).toMatchObject({ statusCode: 404, error: 'Not Found' });
   });
+  it('sends security headers', async () => {
+    const response = await request(app.getHttpServer()).get('/health').expect(200);
+
+    expect(response.headers['x-content-type-options']).toBe('nosniff');
+    expect(response.headers['x-powered-by']).toBeUndefined();
+  });
+
+  it('rate limits login attempts per client', async () => {
+    const attempt = () =>
+      request(app.getHttpServer())
+        .post('/auth/login')
+        .set('CF-Connecting-IP', '203.0.113.7')
+        .send({ username: 'johndoe', password: 'wrong' });
+
+    for (let index = 0; index < 10; index++) {
+      await attempt().expect(401);
+    }
+
+    const blocked = await attempt().expect(429);
+    expect(blocked.body).toMatchObject({
+      statusCode: 429,
+      error: 'Too Many Requests',
+      message: 'Too many requests, please try again later',
+    });
+
+    await request(app.getHttpServer())
+      .post('/auth/login')
+      .set('CF-Connecting-IP', '198.51.100.9')
+      .send({ username: 'johndoe', password: 'susiairtest' })
+      .expect(200);
+  });
 });
