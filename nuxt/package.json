@@ -13,22 +13,40 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "build:prod": "nuxt generate --dotenv .env.production",
+    "deploy": "pnpm build:prod && wrangler deploy",
+    "dev:host": "nuxt dev --host 0.0.0.0",
+    "cap:sync": "cap sync android",
+    "android": "node scripts/android.mjs",
+    "android:apk": "node scripts/android.mjs --apk",
+    "android:live": "node scripts/android.mjs --live",
+    "android:studio": "cap open android"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/keyboard": "^8.0.5",
+    "@capacitor/preferences": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.3",
     "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "@lucide/vue": "^1.49.0",
     "@pinia/nuxt": "0.11.2",
     "chart.js": "^4.5.1",
     "nuxt": "3.21.11",
+    "ofetch": "^1.5.1",
     "pinia": "^3.0.4",
     "vue": "^3.5.43",
     "vue-chartjs": "^5.3.4",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.5.2",
     "sass": "^1.105.1",
     "typescript": "^5.9.3",
-    "vue-tsc": "^3.3.11"
-  }
+    "vue-tsc": "^3.3.11",
+    "wrangler": "^4.145.0"
+  },
+  "packageManager": "pnpm@9.13.2"
 }

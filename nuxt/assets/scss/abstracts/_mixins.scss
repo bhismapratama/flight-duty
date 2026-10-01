@@ -1,11 +1,15 @@
 @use 'variables' as *;
 
+@function safe-inset($side) {
+  @return max(env(safe-area-inset-#{$side}, 0px), var(--safe-area-inset-#{$side}, 0px));
+}
+
 @mixin safe-area-top($base: 0px) {
-  padding-top: calc(#{$base} + env(safe-area-inset-top, 0px));
+  padding-top: calc(#{$base} + #{safe-inset(top)});
 }
 
 @mixin safe-area-bottom($base: 0px) {
-  padding-bottom: calc(#{$base} + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(#{$base} + #{safe-inset(bottom)});
 }
 
 @mixin card {

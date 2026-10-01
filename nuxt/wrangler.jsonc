@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "susi-air-pilot",
+  "compatibility_date": "2026-05-15",
+  "assets": {
+    "directory": "./.output/public",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "single-page-application"
+  }
+}
