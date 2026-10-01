@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="John Doe">
+  <rect width="128" height="128" rx="64" fill="#0E2138"/>
+  <circle cx="64" cy="50" r="22" fill="#F5F6F8"/>
+  <path d="M24 112c4-22 20-34 40-34s36 12 40 34" fill="#F5F6F8"/>
+  <path d="M42 40h44l-4 -12H46z" fill="#E63757"/>
+</svg>
