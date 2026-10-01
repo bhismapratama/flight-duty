@@ -1,8 +1,10 @@
+import { ofetch } from 'ofetch';
+
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig();
   const auth = useAuthStore();
 
-  const api = $fetch.create({
+  const api = ofetch.create({
     baseURL: config.public.apiBase,
     retry: 0,
     onRequest({ options }) {
