@@ -29,6 +29,7 @@ export class PilotService {
       name: pilot.name,
       totalFlightHours: pilot.totalFlightHours,
       avatarUrl: `${this.app.baseUrl}${AVATAR_PATH}`,
+      today: this.app.today,
     };
   }
 }
