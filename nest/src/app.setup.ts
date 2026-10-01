@@ -1,11 +1,14 @@
 import { type INestApplication, ValidationPipe } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet';
 
 import { HttpExceptionFilter, appConfig } from '@common';
 
 export function configureApp(app: INestApplication): void {
   const config = app.get<ConfigType<typeof appConfig>>(appConfig.KEY);
+
+  app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 
   app.enableCors({
     origin: config.corsOrigins,
