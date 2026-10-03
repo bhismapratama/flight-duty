@@ -2,7 +2,6 @@
 import { CalendarX } from '@lucide/vue';
 import type { MonthSchedule, ScheduleEntry } from '~/types/entities/schedule';
 import CalendarDay from '../_components/CalendarDay.vue';
-import CalendarHeader from '../_components/CalendarHeader.vue';
 import DutyLegend from '../_components/DutyLegend.vue';
 
 const props = defineProps<{
@@ -33,7 +32,7 @@ const isEmpty = computed(
 <template>
   <div class="schedule-calendar">
     <BaseCard class="card">
-      <CalendarHeader
+      <MonthSwitcher
         :label="formatMonth(month)"
         @previous="$emit('previous')"
         @next="$emit('next')"
@@ -76,35 +75,81 @@ const isEmpty = computed(
 .schedule-calendar {
   display: flex;
   flex-direction: column;
-  gap: $space-4;
+  gap: $space-3;
 
   .card {
     display: flex;
     flex-direction: column;
     gap: $space-4;
+    padding: $space-4 $space-3;
   }
 
   .weekdays,
   .grid {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 6px;
+    gap: 5px;
   }
 
   .weekdays {
     margin-bottom: $space-2;
     text-align: center;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: $color-text-secondary;
+    @include eyebrow;
+    letter-spacing: 0.04em;
   }
 
-  .grid {
-    transition: opacity $transition-fast;
+  .grid.is-loading {
+    pointer-events: none;
 
-    &.is-loading {
-      opacity: 0.45;
+    :deep(.calendar-day) {
+      background-color: $color-skeleton !important;
+      color: transparent;
+      animation: schedule-calendar-pulse 1.4s ease-in-out infinite;
+
+      > * {
+        visibility: hidden;
+      }
     }
+
+    @for $column from 1 through 7 {
+      > :nth-child(7n + #{$column}) {
+        animation-delay: ($column - 1) * 90ms;
+      }
+    }
+  }
+
+  @media (min-width: 400px) {
+    .card {
+      padding: $space-4;
+    }
+
+    .weekdays,
+    .grid {
+      gap: 6px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .card {
+      gap: $space-5;
+      padding: $space-6;
+    }
+
+    .weekdays,
+    .grid {
+      gap: $space-2;
+    }
+  }
+}
+
+@keyframes schedule-calendar-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
   }
 }
 </style>

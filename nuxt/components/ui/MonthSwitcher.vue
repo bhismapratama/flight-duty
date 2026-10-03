@@ -7,7 +7,7 @@ defineEmits<{ previous: []; next: [] }>();
 </script>
 
 <template>
-  <div class="calendar-header">
+  <div class="month-switcher">
     <button
       type="button"
       class="nav"
@@ -31,29 +31,31 @@ defineEmits<{ previous: []; next: [] }>();
 </template>
 
 <style scoped lang="scss">
-.calendar-header {
+.month-switcher {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: $space-2;
 
   .label {
-    font-size: 1rem;
+    font-size: 1.0625rem;
     font-weight: 800;
+    letter-spacing: -0.01em;
   }
 
   .nav {
     display: grid;
     place-items: center;
-    width: $tap-target;
-    height: $tap-target;
+    width: 40px;
+    height: 40px;
+    border: 1px solid $color-border;
     border-radius: 50%;
-    background: $color-muted;
+    background: $color-surface;
     color: $color-navy;
-    transition: background-color $transition-fast;
+    transition: border-color $transition-fast;
 
     &:hover:not(:disabled) {
-      background: $color-border;
+      border-color: rgba($color-navy, 0.25);
     }
 
     &:disabled {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FileText } from '@lucide/vue';
 import DocumentItem from '../_components/DocumentItem.vue';
-import { useDocuments } from '../_composables/useDocuments';
+import DocumentItemSkeleton from '../_components/DocumentItemSkeleton.vue';
 
 const { documents, status, errorMessage, refresh } = useDocuments();
 </script>
@@ -28,7 +28,7 @@ const { documents, status, errorMessage, refresh } = useDocuments();
       </ul>
 
       <div v-else class="loading" aria-busy="true">
-        <BaseSkeleton v-for="index in 4" :key="index" height="44px" />
+        <DocumentItemSkeleton v-for="index in 4" :key="index" />
       </div>
     </BaseCard>
   </section>
@@ -39,9 +39,11 @@ const { documents, status, errorMessage, refresh } = useDocuments();
   display: flex;
   flex-direction: column;
   gap: $space-3;
+  min-width: 0;
 
   .header {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
     gap: $space-2;
@@ -57,13 +59,11 @@ const { documents, status, errorMessage, refresh } = useDocuments();
   }
 
   .list {
-    margin: -$space-3 0;
+    margin: -6px 0;
   }
 
   .loading {
-    display: flex;
-    flex-direction: column;
-    gap: $space-3;
+    margin: -6px 0;
   }
 }
 </style>
