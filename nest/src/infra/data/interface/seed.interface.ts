@@ -1,4 +1,8 @@
-export type SummaryRange = '1w' | '1m' | '3m' | '6m' | '1y';
+export const SUMMARY_RANGES = ['1w', '1m', '3m', '6m', '1y'] as const;
+
+export type SummaryRange = (typeof SUMMARY_RANGES)[number];
+
+export const LIMIT_KEYS = ['daily', 'weekly', 'monthly', 'annual'] as const;
 
 export interface ChartBound {
   limit: number;
@@ -12,12 +16,7 @@ export interface FlightHoursSeed {
     name: string;
     totalFlightHours: number;
   };
-  limits: {
-    daily: number;
-    weekly: number;
-    monthly: number;
-    annual: number;
-  };
+  limits: Record<(typeof LIMIT_KEYS)[number], number>;
   chartBounds: Record<SummaryRange, ChartBound>;
   flightHours: { date: string; hours: number }[];
 }

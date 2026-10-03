@@ -1,14 +1,8 @@
-import type { SummaryRange } from '@infra';
+import type { LIMIT_KEYS, SummaryRange } from '@infra';
 
-export const SUMMARY_RANGES = [
-  '1w',
-  '1m',
-  '3m',
-  '6m',
-  '1y',
-] as const satisfies readonly SummaryRange[];
+export { SUMMARY_RANGES } from '@infra';
 
-export type LimitKey = 'daily' | 'weekly' | 'monthly' | 'annual';
+export type LimitKey = (typeof LIMIT_KEYS)[number];
 
 export type LimitStatus = 'safe' | 'warning' | 'exceeded';
 
