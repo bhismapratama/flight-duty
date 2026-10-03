@@ -15,25 +15,37 @@ export interface FlightLogHighlights {
 
 export function useFlightLog(current: Ref<YearMonth | null>) {
   const api = useApi();
+  const cache = useResponseCache();
 
-  const { data, status, error, refresh } = useAsyncData(
+  const keyOf = (month: YearMonth) => `flight-log:${formatYearMonth(month)}`;
+
+  const fetchMonth = (month: YearMonth) =>
+    api<FlightHoursRange>('/flight-hours', { query: monthBounds(month) });
+
+  const { status, error, refresh } = useAsyncData(
     'flight-log',
-    () => {
-      if (!current.value) {
-        return Promise.resolve(null);
-      }
-      const { from, to } = monthBounds(current.value);
-      return api<FlightHoursRange>('/flight-hours', { query: { from, to } });
-    },
+    () =>
+      current.value
+        ? cache.load(keyOf(current.value), () => fetchMonth(current.value!))
+        : Promise.resolve(null),
     { watch: [current] },
+  );
+
+  const data = computed(() =>
+    current.value ? (cache.read<FlightHoursRange>(keyOf(current.value)) ?? null) : null,
   );
 
   const errorMessage = computed(() => (error.value ? getErrorMessage(error.value) : null));
 
-  const isCurrentMonth = computed(
-    () =>
-      Boolean(data.value && current.value) && data.value!.from === monthBounds(current.value!).from,
-  );
+  const isCurrentMonth = computed(() => Boolean(data.value));
+
+  watch(status, value => {
+    if (value === 'success' && current.value) {
+      for (const month of [addMonths(current.value, -1), addMonths(current.value, 1)]) {
+        cache.prefetch(keyOf(month), () => fetchMonth(month));
+      }
+    }
+  });
 
   const entries = computed(() => (data.value?.days ?? []).filter(day => day.hours > 0));
 

@@ -26,8 +26,10 @@
     display: flex;
     flex: 1;
     flex-direction: column;
+    justify-content: center;
     gap: $space-2;
     min-width: 0;
+    min-height: 47px;
   }
 
   .meta {

@@ -28,7 +28,7 @@ const { documents, status, errorMessage, refresh } = useDocuments();
       </ul>
 
       <div v-else class="loading" aria-busy="true">
-        <DocumentItemSkeleton v-for="index in 4" :key="index" />
+        <DocumentItemSkeleton v-for="index in 5" :key="index" />
       </div>
     </BaseCard>
   </section>

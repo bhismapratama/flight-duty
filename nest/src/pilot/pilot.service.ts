@@ -6,7 +6,7 @@ import { DataService } from '@infra';
 
 import type { PilotProfile } from './interface/index.js';
 
-export const AVATAR_PATH = '/static/avatar.svg';
+export const AVATAR_PATH = '/static/avatar.jpeg';
 
 @Injectable()
 export class PilotService {

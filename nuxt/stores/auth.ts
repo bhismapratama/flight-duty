@@ -31,6 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
     await tokenStorage.remove();
     usePilotStore().clear();
     clearNuxtData();
+    clearNuxtState('response-cache');
   }
 
   return { token, restored, isAuthenticated, restore, login, logout };

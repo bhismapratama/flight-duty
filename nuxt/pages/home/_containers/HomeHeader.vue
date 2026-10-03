@@ -68,9 +68,11 @@ const slideStyle = (index: number) => {
     </div>
 
     <div v-else class="identity" aria-busy="true">
-      <BaseSkeleton width="160px" height="14px" />
-      <BaseSkeleton width="200px" height="26px" />
-      <BaseSkeleton width="180px" height="28px" radius="999px" />
+      <span class="line is-greeting"><BaseSkeleton width="160px" height="14px" /></span>
+      <span class="line is-name"><BaseSkeleton width="200px" height="26px" /></span>
+      <span class="line is-hours">
+        <BaseSkeleton width="180px" height="28px" radius="999px" />
+      </span>
     </div>
   </header>
 </template>
@@ -113,10 +115,10 @@ const slideStyle = (index: number) => {
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0;
-    transform: scale(1.06);
+    transform: scale(1.05);
     transition:
-      opacity 1.2s ease,
-      transform 8s linear;
+      opacity 0.8s ease,
+      transform 5s ease-out;
 
     &.is-active {
       opacity: 1;
@@ -144,6 +146,24 @@ const slideStyle = (index: number) => {
     flex-direction: column;
     gap: $space-1;
     margin-top: 72px;
+  }
+
+  .line {
+    display: flex;
+    align-items: center;
+
+    &.is-greeting {
+      height: 21px;
+    }
+
+    &.is-name {
+      height: calc(1.75rem * 1.15);
+    }
+
+    &.is-hours {
+      height: 30px;
+      margin-top: $space-3;
+    }
   }
 
   .greeting {
@@ -222,6 +242,10 @@ const slideStyle = (index: number) => {
 
     .name {
       font-size: 2.25rem;
+    }
+
+    .line.is-name {
+      height: calc(2.25rem * 1.15);
     }
   }
 }

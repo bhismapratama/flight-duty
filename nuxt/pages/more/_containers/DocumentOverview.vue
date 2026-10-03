@@ -21,7 +21,6 @@ const counts = computed(() =>
   <section class="document-overview" aria-labelledby="document-overview-title">
     <header class="header">
       <h2 id="document-overview-title" class="title">Documents</h2>
-      <NuxtLink to="/home#my-documents-title" class="link">View all</NuxtLink>
     </header>
 
     <BaseCard>
@@ -72,12 +71,6 @@ $tones: (
 
   .title {
     @include section-title;
-  }
-
-  .link {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    color: $color-red-hover;
   }
 
   .stats {
