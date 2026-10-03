@@ -1,3 +1,4 @@
+export * from './api-docs.decorator.js';
 export * from './current-user.decorator.js';
 export * from './is-enum-optional.decorator.js';
 export * from './is-int-defined.decorator.js';
