@@ -113,10 +113,10 @@ const slideStyle = (index: number) => {
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0;
-    transform: scale(1.06);
+    transform: scale(1.05);
     transition:
-      opacity 1.2s ease,
-      transform 8s linear;
+      opacity 0.8s ease,
+      transform 5s ease-out;
 
     &.is-active {
       opacity: 1;

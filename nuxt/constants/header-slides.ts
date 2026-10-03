@@ -4,7 +4,7 @@ export interface HeaderSlide {
   desktopPosition: string;
 }
 
-export const HEADER_SLIDE_INTERVAL = 7000;
+export const HEADER_SLIDE_INTERVAL = 4500;
 
 export const HEADER_SLIDES: HeaderSlide[] = [
   { src: '/images/cover-avanti-ii.webp', position: '88% 50%', desktopPosition: '50% 30%' },
