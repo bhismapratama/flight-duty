@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Plane } from '@lucide/vue';
+import { HEADER_SLIDE_INTERVAL, HEADER_SLIDES } from '~/constants/header-slides';
 
 const pilot = usePilotStore();
 
@@ -8,10 +9,35 @@ onMounted(() => {
 });
 
 const firstName = computed(() => pilot.profile?.name.split(' ')[0] ?? '');
+
+const { active, isReady } = useAutoSlides(
+  HEADER_SLIDES.map(slide => slide.src),
+  HEADER_SLIDE_INTERVAL,
+);
+
+const slideStyle = (index: number) => {
+  const slide = HEADER_SLIDES[index]!;
+  return isReady(index)
+    ? {
+        backgroundImage: `url(${slide.src})`,
+        '--slide-position': slide.position,
+        '--slide-position-desktop': slide.desktopPosition,
+      }
+    : undefined;
+};
 </script>
 
 <template>
   <header class="home-header">
+    <div class="slides" aria-hidden="true">
+      <span
+        v-for="(slide, index) in HEADER_SLIDES"
+        :key="slide.src"
+        class="slide"
+        :class="{ 'is-active': index === active }"
+        :style="slideStyle(index)"
+      />
+    </div>
     <div class="top">
       <img src="/images/logo-white.png" alt="Susi Air" class="logo" width="120" height="40" />
       <BaseAvatar
@@ -51,14 +77,55 @@ const firstName = computed(() => pilot.profile?.name.split(' ')[0] ?? '');
 
 <style scoped lang="scss">
 .home-header {
-  padding: $space-4 $space-5 $space-8;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: $space-4 $space-5 $space-6;
+  border-radius: 0 0 $radius-xl $radius-xl;
   background: $color-navy;
   color: $color-surface;
-  border-radius: 0 0 24px 24px;
   @include safe-area-top($space-4);
 
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      180deg,
+      rgba($color-navy, 0.45) 0%,
+      rgba($color-navy, 0.15) 30%,
+      rgba($color-navy, 0.85) 62%,
+      rgba($color-navy, 0.97) 100%
+    );
+  }
+
+  .slides {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    background-position: var(--slide-position, center);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transform: scale(1.06);
+    transition:
+      opacity 1.2s ease,
+      transform 8s linear;
+
+    &.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   :deep(.base-skeleton) {
-    opacity: 0.15;
+    opacity: 0.18;
   }
 
   .top {
@@ -75,20 +142,21 @@ const firstName = computed(() => pilot.profile?.name.split(' ')[0] ?? '');
   .identity {
     display: flex;
     flex-direction: column;
-    gap: $space-2;
-    margin-top: $space-6;
+    gap: $space-1;
+    margin-top: 72px;
   }
 
   .greeting {
     font-size: 0.875rem;
-    color: rgba($color-surface, 0.72);
+    color: rgba($color-surface, 0.8);
   }
 
   .name {
-    font-size: 1.6rem;
+    font-size: 1.75rem;
     font-weight: 800;
     letter-spacing: -0.02em;
-    line-height: 1.2;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
   }
 
   .hours {
@@ -96,30 +164,65 @@ const firstName = computed(() => pilot.profile?.name.split(' ')[0] ?? '');
     align-items: center;
     align-self: flex-start;
     gap: $space-2;
-    margin-top: $space-1;
-    padding: 6px 14px;
-    border-radius: $radius-pill;
-    background: rgba($color-surface, 0.1);
-    font-size: 0.8rem;
-    color: rgba($color-surface, 0.85);
+    margin-top: $space-3;
+    font-size: 0.8125rem;
+    color: rgba($color-surface, 0.8);
+
+    svg {
+      box-sizing: content-box;
+      flex-shrink: 0;
+      padding: 7px;
+      border-radius: 50%;
+      background: $color-red;
+      color: $color-surface;
+    }
   }
 
   .hours-value {
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     color: $color-surface;
     @include numeric;
   }
 
   .error {
+    margin-top: $space-1;
     font-size: 0.875rem;
-    color: rgba($color-surface, 0.85);
+    color: rgba($color-surface, 0.9);
   }
 
   .retry {
+    min-height: $tap-target;
     margin-left: $space-2;
     font-weight: 700;
     text-decoration: underline;
     color: $color-surface;
+  }
+
+  @media (min-width: 768px) {
+    margin-top: $space-6;
+    padding: $space-6 $space-8 $space-8;
+    border-radius: $radius-xl;
+
+    &::before {
+      background: linear-gradient(
+        90deg,
+        rgba($color-navy, 0.95) 0%,
+        rgba($color-navy, 0.7) 40%,
+        rgba($color-navy, 0.05) 75%
+      );
+    }
+
+    .slide {
+      background-position: var(--slide-position-desktop, center);
+    }
+
+    .identity {
+      margin-top: 88px;
+    }
+
+    .name {
+      font-size: 2.25rem;
+    }
   }
 }
 </style>
