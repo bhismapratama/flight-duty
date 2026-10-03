@@ -45,6 +45,13 @@ describe('Susi Air API (e2e)', () => {
       });
     });
 
+    it('compares the password exactly, without trimming it', async () => {
+      await request(app.getHttpServer())
+        .post('/auth/login')
+        .send({ username: ' johndoe ', password: ' susiairtest ' })
+        .expect(401);
+    });
+
     it('rejects bad credentials with 401 and the error shape', async () => {
       const response = await request(app.getHttpServer())
         .post('/auth/login')
