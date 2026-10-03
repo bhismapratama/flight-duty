@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import CalendarSkeleton from './_components/CalendarSkeleton.vue';
 import ScheduleCalendar from './_containers/ScheduleCalendar.vue';
-import { useCalendarMonth } from './_composables/useCalendarMonth';
 import { useSchedules } from './_composables/useSchedules';
 
 useHead({ title: 'Schedule · Susi Air Pilot' });
 
-const { current, today, profileError, retryProfile, previous, next } = useCalendarMonth();
+const { current, today, profileError, retryProfile, previous, next } = useMonthQuery();
 const { schedule, status, errorMessage, isCurrentMonth, refresh } = useSchedules(current);
 
 const loading = computed(() => status.value === 'pending' || !isCurrentMonth.value);
@@ -30,7 +30,7 @@ const loading = computed(() => status.value === 'pending' || !isCurrentMonth.val
       <BaseCard v-else-if="profileError">
         <ErrorState :message="profileError" @retry="retryProfile" />
       </BaseCard>
-      <BaseSkeleton v-else height="420px" radius="16px" />
+      <CalendarSkeleton v-else />
     </div>
   </div>
 </template>
@@ -39,6 +39,13 @@ const loading = computed(() => status.value === 'pending' || !isCurrentMonth.val
 .schedule-page {
   .body {
     padding: 0 $space-4;
+    @include page-width;
+  }
+
+  @media (min-width: 768px) {
+    .body {
+      padding-inline: 0;
+    }
   }
 }
 </style>

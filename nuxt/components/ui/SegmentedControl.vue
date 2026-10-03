@@ -35,15 +35,19 @@ defineProps<{
   background: $color-muted;
 
   .option {
-    min-height: 34px;
+    min-height: 38px;
     padding: 0 $space-2;
     border-radius: $radius-pill;
-    font-size: 0.8rem;
+    font-size: 0.8125rem;
     font-weight: 700;
     color: $color-text-secondary;
     transition:
       background-color $transition-fast,
       color $transition-fast;
+
+    &:hover:not(&.is-active) {
+      color: $color-navy;
+    }
 
     &.is-active {
       background: $color-navy;

@@ -1,4 +1,4 @@
-export function useCalendarMonth() {
+export function useMonthQuery() {
   const route = useRoute();
   const router = useRouter();
   const pilot = usePilotStore();

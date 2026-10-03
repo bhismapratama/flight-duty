@@ -14,6 +14,7 @@
 
 @mixin card {
   background: $color-surface;
+  border: 1px solid $color-border;
   border-radius: $radius-lg;
   box-shadow: $shadow-card;
 }
@@ -25,9 +26,24 @@
 }
 
 @mixin section-title {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   color: $color-text;
+}
+
+@mixin eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $color-text-secondary;
+}
+
+@mixin page-width {
+  width: 100%;
+  max-width: $page-max-width;
+  margin-inline: auto;
 }
 
 @mixin focus-ring {

@@ -4,6 +4,20 @@ export type LimitKey = 'daily' | 'weekly' | 'monthly' | 'annual';
 
 export type LimitStatus = 'safe' | 'warning' | 'exceeded';
 
+export interface DailyHours {
+  date: string;
+  hours: number;
+  isFuture: boolean;
+}
+
+export interface FlightHoursRange {
+  from: string;
+  to: string;
+  today: string;
+  totalHours: number;
+  days: DailyHours[];
+}
+
 export interface LimitCard {
   key: LimitKey;
   label: string;

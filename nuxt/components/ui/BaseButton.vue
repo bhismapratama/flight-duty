@@ -36,13 +36,14 @@ withDefaults(
   align-items: center;
   justify-content: center;
   gap: $space-2;
-  min-height: 48px;
+  min-height: 52px;
   padding: 0 $space-6;
   border-radius: $radius-pill;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9375rem;
   transition:
     background-color $transition-fast,
+    border-color $transition-fast,
     opacity $transition-fast,
     transform $transition-fast;
 
@@ -60,28 +61,28 @@ withDefaults(
   }
 
   &.is-primary {
-    background: $color-red;
+    background: $color-red-hover;
     color: $color-surface;
 
     &:hover:not(:disabled) {
-      background: $color-red-hover;
+      background: $color-red;
     }
   }
 
   &.is-secondary {
+    border: 1px solid $color-border;
     background: $color-surface;
     color: $color-navy;
-    border: 1px solid $color-border;
 
     &:hover:not(:disabled) {
-      background: $color-muted;
+      border-color: rgba($color-navy, 0.2);
     }
   }
 
   &.is-ghost {
-    color: $color-navy;
     min-height: $tap-target;
     padding: 0 $space-3;
+    color: $color-navy;
 
     &:hover:not(:disabled) {
       background: $color-muted;

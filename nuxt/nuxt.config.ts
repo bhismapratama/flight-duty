@@ -1,4 +1,9 @@
+import { readFileSync } from 'node:fs';
 import type { NuxtPage } from 'nuxt/schema';
+
+const { version } = JSON.parse(
+  readFileSync(new URL('./package.json', import.meta.url), 'utf8'),
+) as { version: string };
 
 const PRIVATE_SEGMENT = /\/_[^/]+\//;
 
@@ -23,6 +28,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: 'http://localhost:4000',
+      appVersion: version,
     },
   },
   app: {

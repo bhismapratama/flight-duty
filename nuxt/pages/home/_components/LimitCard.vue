@@ -58,44 +58,43 @@ $tones: (
   display: flex;
   flex-direction: column;
   gap: $space-2;
-  padding: $space-4;
+  min-width: 0;
+  padding: 14px;
   @include card;
 
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: $space-1;
   }
 
   .title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: $color-text-secondary;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    @include eyebrow;
   }
 
   .percentage {
     font-size: 0.75rem;
-    font-weight: 800;
+    @include numeric;
   }
 
   .value {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    column-gap: $space-1;
+    column-gap: 3px;
+    margin-bottom: 2px;
   }
 
   .hours {
-    font-size: clamp(1.3rem, 6vw, 1.6rem);
-    line-height: 1.1;
+    font-size: 1.5rem;
+    line-height: 1.2;
     @include numeric;
   }
 
   .limit {
     white-space: nowrap;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: $color-text-secondary;
   }
@@ -104,8 +103,9 @@ $tones: (
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: $space-1;
-    font-size: 0.7rem;
+    gap: 2px $space-1;
+    margin-top: 2px;
+    font-size: 0.6875rem;
     color: $color-text-secondary;
   }
 
@@ -116,7 +116,15 @@ $tones: (
   @each $name, $color in $tones {
     &.is-#{$name} .percentage,
     &.is-#{$name} .remaining {
-      color: color.adjust($color, $lightness: -10%);
+      color: color.adjust($color, $lightness: -12%);
+    }
+  }
+
+  @media (min-width: 400px) {
+    padding: $space-4;
+
+    .hours {
+      font-size: 1.625rem;
     }
   }
 }

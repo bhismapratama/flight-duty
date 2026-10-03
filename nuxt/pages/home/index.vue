@@ -19,10 +19,23 @@ useHead({ title: 'Home · Susi Air Pilot' });
 <style scoped lang="scss">
 .home-page {
   .body {
-    display: flex;
-    flex-direction: column;
-    gap: $space-6;
-    padding: $space-5 $space-4 0;
+    display: grid;
+    gap: $space-8;
+    padding: $space-6 $space-4 0;
+  }
+
+  @media (min-width: 768px) {
+    .body {
+      padding: $space-8 0 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .body {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      align-items: start;
+      gap: $space-6;
+    }
   }
 }
 </style>

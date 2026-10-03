@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { TriangleAlert } from '@lucide/vue';
 import { RANGE_OPTIONS } from '~/constants/ranges';
+import ChartSkeleton from '../_components/ChartSkeleton.vue';
 import LimitCard from '../_components/LimitCard.vue';
+import LimitCardSkeleton from '../_components/LimitCardSkeleton.vue';
 import RollingSumChart from '../_components/RollingSumChart.vue';
 import { useFlightSummary } from '../_composables/useFlightSummary';
 
@@ -37,7 +39,7 @@ const limitNotice = computed(() => {
           <LimitCard v-for="card in summary.cards" :key="card.key" :card="card" />
         </template>
         <template v-else>
-          <BaseSkeleton v-for="index in 4" :key="index" height="128px" radius="16px" />
+          <LimitCardSkeleton v-for="index in 4" :key="index" />
         </template>
       </div>
 
@@ -54,7 +56,7 @@ const limitNotice = computed(() => {
         <SegmentedControl v-model="range" :options="RANGE_OPTIONS" label="Rolling sum range" />
 
         <RollingSumChart v-if="summary" :chart="summary.chart" :loading="isRefreshing" />
-        <BaseSkeleton v-else height="252px" radius="12px" />
+        <ChartSkeleton v-else />
 
         <p v-if="limitNotice" class="notice" role="status">
           <TriangleAlert :size="16" aria-hidden="true" />
@@ -77,9 +79,11 @@ const limitNotice = computed(() => {
   display: flex;
   flex-direction: column;
   gap: $space-3;
+  min-width: 0;
 
   .header {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
     gap: $space-2;
@@ -97,18 +101,20 @@ const limitNotice = computed(() => {
   .cards {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $space-3;
+    gap: 10px;
   }
 
   .chart {
     display: flex;
     flex-direction: column;
     gap: $space-4;
+    min-width: 0;
   }
 
   .chart-title {
-    font-size: 0.95rem;
-    font-weight: 700;
+    font-size: 0.9375rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
   }
 
   .chart-subtitle {
@@ -118,14 +124,37 @@ const limitNotice = computed(() => {
 
   .notice {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: $space-2;
-    padding: $space-2 $space-3;
+    padding: 10px $space-3;
     border-radius: $radius-md;
-    background: rgba($color-danger, 0.08);
-    color: $color-danger;
-    font-size: 0.8rem;
+    background: rgba($color-danger, 0.07);
+    color: $color-red-hover;
+    font-size: 0.8125rem;
     font-weight: 600;
+    line-height: 1.4;
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cards {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: $space-3;
+    }
+
+    .chart {
+      padding: $space-5;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 }
 </style>

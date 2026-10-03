@@ -37,24 +37,26 @@ useHead({ title: 'Sign In · Susi Air Pilot' });
 .login-page {
   display: flex;
   flex-direction: column;
+  width: 100%;
   min-height: 100dvh;
   background: $color-navy;
 
   .hero {
     position: relative;
-    height: 38dvh;
-    min-height: 220px;
+    height: clamp(240px, 42dvh, 400px);
     overflow: hidden;
 
     &::after {
       content: '';
       position: absolute;
       inset: 0;
+      pointer-events: none;
       background: linear-gradient(
         180deg,
-        rgba($color-navy, 0.55) 0%,
-        rgba($color-navy, 0.2) 45%,
-        $color-navy 100%
+        rgba($color-navy, 0.7) 0%,
+        rgba($color-navy, 0) 38%,
+        rgba($color-navy, 0) 70%,
+        rgba($color-navy, 0.5) 100%
       );
     }
   }
@@ -63,7 +65,7 @@ useHead({ title: 'Sign In · Susi Air Pilot' });
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 40%;
+    object-position: 45% 45%;
   }
 
   .hero-content {
@@ -73,6 +75,7 @@ useHead({ title: 'Sign In · Susi Air Pilot' });
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: $space-4;
     padding: $space-5;
     @include safe-area-top($space-5);
   }
@@ -83,13 +86,12 @@ useHead({ title: 'Sign In · Susi Air Pilot' });
   }
 
   .eyebrow {
-    padding: 4px 12px;
-    border-radius: $radius-pill;
-    background: rgba($color-surface, 0.16);
-    color: $color-surface;
-    font-size: 0.75rem;
+    padding-left: $space-3;
+    border-left: 1px solid rgba($color-surface, 0.35);
+    color: rgba($color-surface, 0.85);
+    font-size: 0.6875rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
@@ -102,20 +104,68 @@ useHead({ title: 'Sign In · Susi Air Pilot' });
     gap: $space-6;
     margin-top: -$space-6;
     padding: $space-8 $space-5;
-    border-radius: 24px 24px 0 0;
+    border-radius: $radius-xl $radius-xl 0 0;
     background: $color-surface;
     @include safe-area-bottom($space-8);
   }
 
   .title {
-    font-size: 1.6rem;
+    font-size: 1.625rem;
     font-weight: 800;
     letter-spacing: -0.02em;
+    line-height: 1.2;
   }
 
   .subtitle {
-    margin-top: $space-1;
+    max-width: 340px;
+    margin-top: $space-2;
+    font-size: 0.875rem;
+    line-height: 1.6;
     color: $color-text-secondary;
+  }
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    max-width: 960px;
+    min-height: 600px;
+    overflow: hidden;
+    border-radius: $radius-xl;
+    box-shadow: 0 24px 64px rgba($color-navy, 0.12);
+
+    .hero {
+      height: auto;
+    }
+
+    .hero-content {
+      padding: $space-8;
+    }
+
+    .photo {
+      object-position: 30% center;
+    }
+
+    .panel {
+      justify-content: center;
+      margin: 0;
+      padding: 48px clamp(32px, 5vw, 56px);
+      border-radius: 0;
+    }
+
+    .title {
+      font-size: 1.875rem;
+    }
+  }
+
+  @media (max-width: 767px) and (max-height: 640px) {
+    .hero {
+      height: 180px;
+    }
+
+    .panel {
+      gap: $space-5;
+      padding-top: $space-6;
+    }
   }
 }
 </style>

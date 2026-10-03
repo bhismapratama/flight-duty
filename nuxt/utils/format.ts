@@ -23,6 +23,11 @@ const shortDate = new Intl.DateTimeFormat(LOCALE, {
   timeZone: 'UTC',
 });
 
+const weekdayLabel = new Intl.DateTimeFormat(LOCALE, {
+  weekday: 'short',
+  timeZone: 'UTC',
+});
+
 const monthLabel = new Intl.DateTimeFormat(LOCALE, {
   month: 'long',
   year: 'numeric',
@@ -44,6 +49,10 @@ export function formatLongDate(isoDate: string): string {
 
 export function formatShortDate(isoDate: string): string {
   return shortDate.format(toUtcDate(isoDate));
+}
+
+export function formatWeekday(isoDate: string): string {
+  return weekdayLabel.format(toUtcDate(isoDate));
 }
 
 export function formatMonth(value: YearMonth): string {

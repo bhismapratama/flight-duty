@@ -46,9 +46,9 @@ $tones: (
 
 .document-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: $space-3;
-  padding: $space-3 0;
+  padding: 14px 0;
 
   & + & {
     border-top: 1px solid $color-border;
@@ -58,8 +58,8 @@ $tones: (
     display: grid;
     place-items: center;
     flex-shrink: 0;
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: $radius-md;
 
     @each $name, $color in $tones {
@@ -74,7 +74,7 @@ $tones: (
     display: flex;
     flex: 1;
     flex-direction: column;
-    gap: 6px;
+    gap: 2px;
     min-width: 0;
   }
 
@@ -83,17 +83,19 @@ $tones: (
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: $space-2;
+    gap: $space-1 $space-2;
   }
 
   .label {
     font-size: 0.875rem;
-    font-weight: 600;
-    line-height: 1.3;
+    font-weight: 700;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
   }
 
   .date {
     font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
     color: $color-text-secondary;
   }
 }

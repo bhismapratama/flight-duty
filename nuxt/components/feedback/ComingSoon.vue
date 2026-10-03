@@ -19,6 +19,6 @@ withDefaults(defineProps<{ title?: string; description?: string; icon?: Componen
 
 <style scoped lang="scss">
 .coming-soon {
-  padding: $space-6 $space-4;
+  padding: $space-8 $space-4;
 }
 </style>
