@@ -15,6 +15,7 @@ import {
   THROTTLE_TTL_MS,
   appConfig,
   jwtConfig,
+  throttleConfig,
   validateEnv,
 } from '@common';
 import { DataModule } from '@infra';
@@ -30,7 +31,7 @@ import { SchedulesModule } from './schedules/schedules.module.js';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, jwtConfig],
+      load: [appConfig, jwtConfig, throttleConfig],
       validate: validateEnv,
     }),
     JwtModule.registerAsync({
