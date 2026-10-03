@@ -13,7 +13,7 @@ export const LOGIN_SLIDES: LoginSlide[] = [
     position: '45% 45%',
     desktopPosition: '30% 50%',
     title: 'Your roster at a glance',
-    text: 'Duty, standby and days off for the month, colour-coded by base.',
+    text: 'Duty, leave and training days for the month, colour-coded by duty type.',
   },
   {
     src: '/images/login-cargo.webp',
