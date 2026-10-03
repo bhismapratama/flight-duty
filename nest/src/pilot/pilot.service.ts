@@ -22,12 +22,13 @@ export class PilotService {
     }
 
     const { pilot } = this.data.flightHours;
+    const series = this.data.flightSeries;
 
     return {
       id: PILOT_ACCOUNT.id,
       username: PILOT_ACCOUNT.username,
       name: pilot.name,
-      totalFlightHours: pilot.totalFlightHours,
+      totalFlightHours: series.sumBetween(series.firstDate, this.app.today),
       avatarUrl: `${this.app.baseUrl}${AVATAR_PATH}`,
       today: this.app.today,
     };

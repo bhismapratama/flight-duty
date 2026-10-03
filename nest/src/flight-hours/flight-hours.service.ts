@@ -3,7 +3,7 @@ import type { ConfigType } from '@nestjs/config';
 
 import { appConfig } from '@common';
 import { DataService, type SummaryRange } from '@infra';
-import { DailySeries, addDays, diffInDays, eachDay } from '@utils';
+import { type DailySeries, addDays, diffInDays, eachDay } from '@utils';
 
 import type {
   ChartPoint,
@@ -33,7 +33,7 @@ export class FlightHoursService {
     @Inject(appConfig.KEY)
     private readonly app: ConfigType<typeof appConfig>,
   ) {
-    this.series = new DailySeries(data.flightHours.flightHours);
+    this.series = data.flightSeries;
   }
 
   getDailyHours(from: string, to: string): FlightHoursRange {

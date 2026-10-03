@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 import { Injectable, Logger } from '@nestjs/common';
 
-import { isIsoDate } from '@utils';
+import { DailySeries, isIsoDate } from '@utils';
 
 import type { DocumentsSeed, FlightHoursSeed, SchedulesSeed } from './interface/index.js';
 
@@ -16,6 +16,7 @@ export class DataService {
   readonly flightHours: FlightHoursSeed;
   readonly documents: DocumentsSeed;
   readonly schedules: SchedulesSeed;
+  readonly flightSeries: DailySeries;
 
   constructor() {
     this.flightHours = readSeed<FlightHoursSeed>('flight-hours.json');
@@ -34,6 +35,8 @@ export class DataService {
       'schedules.json',
       this.schedules.schedules.map(entry => entry.duty_date),
     );
+
+    this.flightSeries = new DailySeries(this.flightHours.flightHours);
 
     this.logger.log(
       `Seeded ${this.flightHours.flightHours.length} flight-hour days, ` +
