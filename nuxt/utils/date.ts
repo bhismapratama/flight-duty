@@ -58,6 +58,13 @@ export function daysInMonth({ year, month }: YearMonth): number {
   return new Date(Date.UTC(year, month, 0)).getUTCDate();
 }
 
+export function monthBounds(value: YearMonth): { from: string; to: string } {
+  return {
+    from: toIsoDate(value.year, value.month, 1),
+    to: toIsoDate(value.year, value.month, daysInMonth(value)),
+  };
+}
+
 export function mondayFirstWeekday(isoDate: string): number {
   return (toUtcDate(isoDate).getUTCDay() + 6) % 7;
 }
