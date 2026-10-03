@@ -1,5 +1,7 @@
 import { ofetch } from 'ofetch';
 
+const REQUEST_TIMEOUT_MS = 15_000;
+
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig();
   const auth = useAuthStore();
@@ -7,6 +9,7 @@ export default defineNuxtPlugin(() => {
   const api = ofetch.create({
     baseURL: config.public.apiBase,
     retry: 0,
+    timeout: REQUEST_TIMEOUT_MS,
     onRequest({ options }) {
       if (auth.token) {
         options.headers.set('Authorization', `Bearer ${auth.token}`);
