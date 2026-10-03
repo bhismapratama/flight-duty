@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { LogOut } from '@lucide/vue';
+import { FileText, LogOut } from '@lucide/vue';
 import DetailList, { type DetailItem } from './_components/DetailList.vue';
 import DetailListSkeleton from './_components/DetailListSkeleton.vue';
+import MenuRow from './_components/MenuRow.vue';
 import DocumentOverview from './_containers/DocumentOverview.vue';
 
 useHead({ title: 'More · Susi Air Pilot' });
@@ -42,7 +43,9 @@ async function signOut(): Promise<void> {
 
 <template>
   <div class="more-page">
-    <PageHeader title="More" />
+    <header class="hero">
+      <h1 class="heading">More</h1>
+    </header>
     <div class="body">
       <BaseCard class="profile">
         <template v-if="pilot.profile">
@@ -53,7 +56,7 @@ async function signOut(): Promise<void> {
           </div>
         </template>
         <template v-else>
-          <BaseSkeleton width="62px" height="62px" radius="50%" class="avatar-skeleton" />
+          <BaseSkeleton width="56px" height="56px" radius="50%" />
           <div class="name-skeleton">
             <BaseSkeleton width="140px" height="16px" radius="6px" />
             <BaseSkeleton width="96px" height="11px" radius="4px" />
@@ -84,52 +87,70 @@ async function signOut(): Promise<void> {
         </BaseCard>
       </section>
 
-      <BaseButton variant="secondary" block :loading="signingOut" @click="signOut">
-        <LogOut :size="18" aria-hidden="true" />
-        Sign Out
-      </BaseButton>
+      <BaseCard class="menu">
+        <ul>
+          <MenuRow :icon="FileText" label="My documents" to="/home#my-documents-title" />
+          <MenuRow :icon="LogOut" label="Sign Out" danger :loading="signingOut" @click="signOut" />
+        </ul>
+      </BaseCard>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+$more-overlap: 56px;
+
 .more-page {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: $space-4 $space-4 calc(#{$space-6} + #{$more-overlap});
+    border-radius: 0 0 $radius-xl $radius-xl;
+    background: $color-navy;
+    color: $color-surface;
+    @include safe-area-top($space-4);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(
+          180deg,
+          rgba($color-navy, 0.2) 0%,
+          rgba($color-navy, 0.35) 45%,
+          rgba($color-navy, 0.9) 100%
+        ),
+        url('/images/cover-sky.webp') 50% 60% / cover no-repeat;
+    }
+  }
+
+  .heading {
+    padding-top: 56px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    @include page-width;
+  }
+
   .body {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: $space-6;
+    margin-top: -$more-overlap;
     padding: 0 $space-4;
     @include page-width;
   }
 
   .profile {
-    position: relative;
-    isolation: isolate;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: $space-3;
-    overflow: hidden;
-    padding: 40px $space-4 $space-4;
-
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0 0 auto;
-      z-index: -1;
-      height: 72px;
-      background:
-        linear-gradient(180deg, rgba($color-navy, 0.15), rgba($color-navy, 0.45)),
-        url('/images/cover-sky.webp') 50% 55% / cover no-repeat;
-    }
-
-    :deep(.base-avatar) {
-      border: 3px solid $color-surface;
-    }
-  }
-
-  .avatar-skeleton {
-    box-shadow: 0 0 0 3px $color-surface;
+    align-items: center;
+    gap: $space-4;
+    box-shadow: $shadow-float;
   }
 
   .name-skeleton {
@@ -142,13 +163,13 @@ async function signOut(): Promise<void> {
     font-size: 1.0625rem;
     font-weight: 800;
     letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
   }
 
   .meta {
+    margin-top: 2px;
     font-size: 0.8125rem;
-    font-variant-numeric: tabular-nums;
     color: $color-text-secondary;
-    overflow-wrap: anywhere;
   }
 
   .section {
@@ -161,17 +182,28 @@ async function signOut(): Promise<void> {
     @include section-title;
   }
 
+  .menu {
+    padding-block: $space-1;
+  }
+
   @media (min-width: 768px) {
+    .hero {
+      margin-top: $space-6;
+      padding-inline: $space-8;
+      border-radius: $radius-xl;
+    }
+
+    .heading {
+      padding-top: 72px;
+      font-size: 1.75rem;
+    }
+
     .body {
       padding-inline: 0;
     }
 
     .profile {
-      padding: 56px $space-5 $space-5;
-
-      &::before {
-        height: 88px;
-      }
+      padding: $space-5;
     }
   }
 }
