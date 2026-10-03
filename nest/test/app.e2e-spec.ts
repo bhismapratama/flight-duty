@@ -94,7 +94,7 @@ describe('Susi Air API (e2e)', () => {
     expect(response.body.data).toMatchObject({
       name: 'John Doe',
       totalFlightHours: 1385.4,
-      avatarUrl: expect.stringContaining('/static/avatar.svg'),
+      avatarUrl: expect.stringContaining('/static/avatar.jpeg'),
       today: '2026-05-15',
     });
   });
