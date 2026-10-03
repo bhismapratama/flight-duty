@@ -3,11 +3,15 @@ import type { FlightHoursSummary, SummaryRange } from '~/types/entities/flight-h
 
 export function useFlightSummary() {
   const api = useApi();
+  const cache = useResponseCache();
   const range = ref<SummaryRange>(DEFAULT_RANGE);
 
   const { data, status, error, refresh } = useAsyncData(
     'flight-hours-summary',
-    () => api<FlightHoursSummary>('/flight-hours/summary', { query: { range: range.value } }),
+    () =>
+      cache.load(`flight-hours-summary:${range.value}`, () =>
+        api<FlightHoursSummary>('/flight-hours/summary', { query: { range: range.value } }),
+      ),
     { watch: [range] },
   );
 

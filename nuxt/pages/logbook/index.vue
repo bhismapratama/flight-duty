@@ -7,19 +7,10 @@ import { useFlightLog } from './_composables/useFlightLog';
 useHead({ title: 'Logbook · Susi Air Pilot' });
 
 const { current, profileError, retryProfile, previous, next } = useMonthQuery();
-const {
-  log,
-  entries,
-  totals,
-  maxHours,
-  highlights,
-  status,
-  errorMessage,
-  isCurrentMonth,
-  refresh,
-} = useFlightLog(current);
+const { log, entries, totals, maxHours, highlights, errorMessage, isCurrentMonth, refresh } =
+  useFlightLog(current);
 
-const loading = computed(() => status.value === 'pending' || !isCurrentMonth.value);
+const loading = computed(() => !isCurrentMonth.value);
 </script>
 
 <template>

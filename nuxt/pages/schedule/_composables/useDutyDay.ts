@@ -3,13 +3,17 @@ import { useSchedules } from './useSchedules';
 
 export function useDutyDay(date: Ref<string>) {
   const api = useApi();
+  const cache = useResponseCache();
   const month = computed<YearMonth | null>(() => yearMonthOf(date.value));
 
   const schedules = useSchedules(month);
 
   const hours = useAsyncData(
     'duty-day-hours',
-    () => api<FlightHoursRange>('/flight-hours', { query: { from: date.value, to: date.value } }),
+    () =>
+      cache.load(`flight-hours:${date.value}`, () =>
+        api<FlightHoursRange>('/flight-hours', { query: { from: date.value, to: date.value } }),
+      ),
     { watch: [date] },
   );
 

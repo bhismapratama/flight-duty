@@ -6,9 +6,11 @@ import { useSchedules } from './_composables/useSchedules';
 useHead({ title: 'Schedule · Susi Air Pilot' });
 
 const { current, today, profileError, retryProfile, previous, next } = useMonthQuery();
-const { schedule, status, errorMessage, isCurrentMonth, refresh } = useSchedules(current);
+const { schedule, errorMessage, isCurrentMonth, refresh } = useSchedules(current, {
+  prefetchAdjacent: true,
+});
 
-const loading = computed(() => status.value === 'pending' || !isCurrentMonth.value);
+const loading = computed(() => !isCurrentMonth.value);
 </script>
 
 <template>
