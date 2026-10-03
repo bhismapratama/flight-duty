@@ -25,12 +25,13 @@ const BAR_HEIGHTS = [34, 34, 38, 28, 36, 50, 56, 58, 64, 70, 82, 86, 88, 84, 76]
   display: flex;
   flex-direction: column;
   gap: $space-4;
+  height: 250px;
 
   .plot {
     display: flex;
+    flex: 1;
     align-items: flex-end;
     gap: 6px;
-    height: 220px;
     padding: 0 0 $space-2 $space-6;
     border-bottom: 1px solid $color-border;
   }
