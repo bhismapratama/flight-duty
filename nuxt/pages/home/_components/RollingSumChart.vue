@@ -32,6 +32,11 @@ const labels = computed(() => points.value.map(point => String(dayOfMonth(point.
 
 const pointAt = (index: number): ChartPoint | undefined => points.value[index];
 
+const hasPartialWindow = computed(() => points.value.some(point => point.isPartialWindow));
+
+const pointColor = (point: ChartPoint | undefined) =>
+  point?.isOverLimit ? theme.danger : theme.chart;
+
 const todayMarker: Plugin<'line'> = {
   id: 'todayMarker',
   beforeDatasetsDraw(chart) {
@@ -87,9 +92,14 @@ const data = computed<ChartData<'line'>>(() => ({
         pointAt(context.dataIndex)?.isToday ? 6 : 3.5,
       pointHoverRadius: 7,
       pointBorderWidth: 2,
-      pointBorderColor: theme.surface,
-      pointBackgroundColor: (context: ScriptableContext<'line'>) =>
-        pointAt(context.dataIndex)?.isOverLimit ? theme.danger : theme.chart,
+      pointBorderColor: (context: ScriptableContext<'line'>) => {
+        const point = pointAt(context.dataIndex);
+        return point?.isPartialWindow ? pointColor(point) : theme.surface;
+      },
+      pointBackgroundColor: (context: ScriptableContext<'line'>) => {
+        const point = pointAt(context.dataIndex);
+        return point?.isPartialWindow ? theme.surface : pointColor(point);
+      },
       segment: {
         borderDash: (context: ScriptableLineSegmentContext) =>
           pointAt(context.p1DataIndex)?.isFuture ? [6, 5] : undefined,
@@ -126,7 +136,11 @@ const options = computed<ChartOptions<'line'>>(() => ({
           if (!point) {
             return '';
           }
-          return `${formatShortDate(point.date)}${point.isFuture ? ' · projected' : ''}`;
+          const notes = [
+            point.isFuture && 'projected',
+            point.isPartialWindow && 'partial data',
+          ].filter(Boolean);
+          return [formatShortDate(point.date), ...notes].join(' · ');
         },
         label: (item: TooltipItem<'line'>) => {
           const point = pointAt(item.dataIndex);
@@ -172,7 +186,11 @@ const summaryLabel = computed(() => {
   const base = today
     ? `Rolling ${props.chart.windowDays}-day flight hours. Today ${formatHours(today.value)} of ${props.chart.limit} hour limit.`
     : 'Rolling flight hours chart.';
-  return over > 0 ? `${base} ${over} days above the limit.` : base;
+  const overNote = over > 0 ? ` ${over} days above the limit.` : '';
+  const partialNote = hasPartialWindow.value
+    ? ' Some days fall outside the recorded data and count as zero.'
+    : '';
+  return `${base}${overNote}${partialNote}`;
 });
 </script>
 
@@ -193,6 +211,10 @@ const summaryLabel = computed(() => {
       <li class="legend-item">
         <span class="swatch is-limit" />
         Limit {{ chart.limit.toLocaleString('en-US') }} h
+      </li>
+      <li v-if="hasPartialWindow" class="legend-item">
+        <span class="dot" />
+        Partial data
       </li>
     </ul>
   </div>
@@ -239,6 +261,14 @@ const summaryLabel = computed(() => {
     &.is-limit {
       border-top: 2px solid $color-red;
     }
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    border: 2px solid $color-chart;
+    border-radius: 50%;
+    background: $color-surface;
   }
 }
 </style>

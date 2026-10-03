@@ -6,7 +6,7 @@ if (isNativePlatform()) {
 </script>
 
 <template>
-  <NuxtLoadingIndicator color="#E63757" :height="3" />
+  <NuxtLoadingIndicator color="var(--color-red)" :height="3" />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
