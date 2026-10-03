@@ -37,23 +37,19 @@ defineProps<{ legend: DutyLegend[] }>();
   gap: $space-3;
 
   .title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: $color-text-secondary;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    @include eyebrow;
   }
 
   .list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $space-2 $space-3;
+    gap: 10px $space-3;
   }
 
   .status {
     display: flex;
     flex-wrap: wrap;
-    gap: $space-2 $space-4;
+    gap: $space-2 $space-5;
     padding-top: $space-3;
     border-top: 1px solid $color-border;
   }
@@ -63,22 +59,26 @@ defineProps<{ legend: DutyLegend[] }>();
     align-items: center;
     gap: $space-2;
     min-width: 0;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
   }
 
   .swatch {
     flex-shrink: 0;
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 4px;
   }
 
   .code {
+    flex-shrink: 0;
+    min-width: 28px;
+    font-size: 0.6875rem;
     font-weight: 800;
-    font-size: 0.75rem;
+    letter-spacing: 0.02em;
   }
 
   .label {
+    min-width: 0;
     line-height: 1.25;
     color: $color-text-secondary;
   }
@@ -88,14 +88,22 @@ defineProps<{ legend: DutyLegend[] }>();
     place-items: center;
     min-width: 16px;
     height: 16px;
+    padding: 0 3px;
+    border: 1px solid $color-border;
     border-radius: $radius-pill;
-    background: $color-navy;
-    color: $color-surface;
-    font-size: 0.6rem;
+    background: $color-surface;
+    color: $color-navy;
+    font-size: 0.5625rem;
     font-weight: 800;
 
     &.is-done {
-      background: $color-success;
+      color: $color-success;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 }

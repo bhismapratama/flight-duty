@@ -32,32 +32,35 @@ const goHome = () => clearError({ redirect: '/home' });
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: $space-3;
+  gap: $space-2;
   min-height: 100dvh;
-  max-width: $app-max-width;
+  max-width: 480px;
   margin: 0 auto;
   padding: $space-6;
   text-align: center;
 
   .logo {
-    width: 140px;
+    width: 120px;
     height: auto;
-    margin-bottom: $space-6;
+    margin-bottom: $space-8;
   }
 
   .code {
-    font-size: 3rem;
+    font-size: 3.5rem;
+    line-height: 1;
     color: $color-red;
     @include numeric;
   }
 
   .title {
+    margin-top: $space-2;
     font-size: 1.25rem;
     font-weight: 800;
+    letter-spacing: -0.01em;
   }
 
   .message {
-    margin-bottom: $space-4;
+    margin-bottom: $space-5;
     color: $color-text-secondary;
   }
 }

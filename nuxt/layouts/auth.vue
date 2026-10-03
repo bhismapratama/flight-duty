@@ -7,8 +7,13 @@
 <style scoped lang="scss">
 .auth-shell {
   min-height: 100dvh;
-  max-width: $app-max-width;
-  margin: 0 auto;
   background: $color-surface;
+
+  @media (min-width: 768px) {
+    display: grid;
+    place-items: center;
+    padding: 48px $space-6;
+    background: $color-bg;
+  }
 }
 </style>

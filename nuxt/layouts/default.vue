@@ -14,7 +14,15 @@
   .content {
     max-width: $app-max-width;
     margin: 0 auto;
-    padding-bottom: calc(#{$bottom-nav-height} + #{$space-6} + #{safe-inset(bottom)});
+    padding-bottom: calc(
+      #{$bottom-nav-height} + #{$bottom-nav-offset} + #{$space-8} + #{safe-inset(bottom)}
+    );
+  }
+
+  @media (min-width: 768px) {
+    .content {
+      padding-inline: $space-6;
+    }
   }
 }
 </style>

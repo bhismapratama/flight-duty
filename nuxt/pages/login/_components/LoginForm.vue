@@ -65,11 +65,11 @@ const showPassword = ref(false);
     gap: $space-2;
     padding: $space-3;
     border-radius: $radius-md;
-    background: rgba($color-danger, 0.08);
-    border: 1px solid rgba($color-danger, 0.25);
-    color: $color-danger;
+    background: rgba($color-danger, 0.07);
+    color: $color-red-hover;
     font-size: 0.875rem;
     font-weight: 600;
+    line-height: 1.4;
 
     svg {
       flex-shrink: 0;

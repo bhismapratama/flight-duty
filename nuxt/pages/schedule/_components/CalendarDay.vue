@@ -52,16 +52,17 @@ const ariaLabel = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use 'sass:color';
+
 .calendar-day {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
-  padding: 5px 2px 4px;
-  aspect-ratio: 1 / 1.08;
-  min-height: $tap-target;
-  border-radius: $radius-md;
+  min-width: 0;
+  min-height: 52px;
+  padding: 6px 5px 5px;
+  border-radius: 10px;
   color: $color-text;
   transition: transform $transition-fast;
 
@@ -69,29 +70,37 @@ const ariaLabel = computed(() => {
     transform: scale(0.95);
   }
 
+  &:focus-visible {
+    z-index: 1;
+    outline-offset: 2px;
+  }
+
   .number {
-    align-self: flex-start;
-    padding-left: 4px;
-    font-size: 0.85rem;
-    font-weight: 700;
+    font-size: 0.8125rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
     line-height: 1;
   }
 
   &:not(&.is-duty) {
+    align-items: center;
     justify-content: center;
+    background: $color-bg;
   }
 
   &:not(&.is-duty) .number {
-    align-self: center;
-    padding-left: 0;
+    font-weight: 600;
+    color: $color-text-secondary;
   }
 
   .base {
-    max-width: 100%;
     overflow: hidden;
-    font-size: 0.55rem;
+    font-size: 0.5625rem;
     font-weight: 700;
     letter-spacing: 0.04em;
+    line-height: 1;
+    text-overflow: clip;
+    white-space: nowrap;
     opacity: 0.9;
   }
 
@@ -107,24 +116,55 @@ const ariaLabel = computed(() => {
     border-radius: $radius-pill;
     background: $color-surface;
     color: $color-navy;
-    font-size: 0.6rem;
+    font-size: 0.5625rem;
     font-weight: 800;
-    box-shadow: 0 1px 2px rgba($color-navy, 0.2);
+    font-variant-numeric: tabular-nums;
 
     &.is-done {
-      background: $color-surface;
-      color: $color-success;
+      color: color.adjust($color-success, $lightness: -12%);
     }
   }
 
   &.is-today {
     box-shadow:
-      0 0 0 2px $color-bg,
-      0 0 0 4px $color-red;
+      0 0 0 2px $color-surface,
+      0 0 0 4px $color-navy;
   }
 
   &.is-today:not(&.is-duty) .number {
-    color: $color-red;
+    color: $color-navy;
+    font-weight: 800;
+  }
+
+  @media (min-width: 400px) {
+    min-height: 58px;
+    padding: 7px 6px 6px;
+
+    .number {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    min-height: 76px;
+    padding: 10px;
+    border-radius: $radius-md;
+
+    .number {
+      font-size: 1rem;
+    }
+
+    .base {
+      font-size: 0.6875rem;
+    }
+
+    .indicator {
+      top: 8px;
+      right: 8px;
+      min-width: 18px;
+      height: 18px;
+      font-size: 0.625rem;
+    }
   }
 }
 </style>

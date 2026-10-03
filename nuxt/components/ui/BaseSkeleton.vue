@@ -12,18 +12,30 @@ withDefaults(defineProps<{ width?: string; height?: string; radius?: string }>()
 
 <style scoped lang="scss">
 .base-skeleton {
+  position: relative;
   display: block;
-  background: linear-gradient(90deg, $color-muted 0%, $color-muted-light 50%, $color-muted 100%);
-  background-size: 200% 100%;
-  animation: base-skeleton-shimmer 1.2s ease-in-out infinite;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: $color-skeleton;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba($color-surface, 0.65) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: base-skeleton-shimmer 1.4s ease-in-out infinite;
+  }
 }
 
 @keyframes base-skeleton-shimmer {
-  from {
-    background-position: 200% 0;
-  }
   to {
-    background-position: -200% 0;
+    transform: translateX(100%);
   }
 }
 </style>

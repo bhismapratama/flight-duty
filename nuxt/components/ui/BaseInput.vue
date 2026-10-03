@@ -54,8 +54,8 @@ withDefaults(
   gap: 6px;
 
   .label {
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.8125rem;
+    font-weight: 700;
     color: $color-text;
   }
 
@@ -67,24 +67,31 @@ withDefaults(
 
   .field {
     width: 100%;
-    min-height: 50px;
+    min-height: 52px;
     padding: 0 $space-4;
     border: 1px solid $color-border;
     border-radius: $radius-md;
-    background: $color-surface;
+    background: $color-bg;
     font-size: 1rem;
     transition:
+      background-color $transition-fast,
       border-color $transition-fast,
       box-shadow $transition-fast;
 
     &::placeholder {
-      color: $color-text-secondary;
+      color: rgba($color-text-secondary, 0.8);
     }
 
     &:focus {
       outline: none;
       border-color: $color-navy;
+      background: $color-surface;
       box-shadow: 0 0 0 3px rgba($color-navy, 0.08);
+    }
+
+    &:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
     }
   }
 
@@ -99,12 +106,14 @@ withDefaults(
   }
 
   .error {
-    font-size: 0.8rem;
-    color: $color-danger;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: $color-red-hover;
   }
 
   &.is-invalid .field {
     border-color: $color-danger;
+    background: rgba($color-danger, 0.03);
   }
 }
 </style>

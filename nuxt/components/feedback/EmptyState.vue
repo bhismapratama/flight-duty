@@ -31,21 +31,24 @@ defineProps<{
   .icon {
     display: grid;
     place-items: center;
-    width: 52px;
-    height: 52px;
-    margin-bottom: $space-2;
-    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    margin-bottom: $space-3;
+    border-radius: $radius-lg;
     background: $color-muted;
     color: $color-navy;
   }
 
   .title {
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
   }
 
   .description {
-    max-width: 280px;
+    max-width: 300px;
     font-size: 0.875rem;
+    line-height: 1.6;
     color: $color-text-secondary;
   }
 }

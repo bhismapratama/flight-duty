@@ -6,11 +6,12 @@ defineProps<{
   title: string;
   subtitle?: string;
   back?: RouteLocationRaw;
+  wide?: boolean;
 }>();
 </script>
 
 <template>
-  <header class="page-header">
+  <header class="page-header" :class="{ 'is-wide': wide }">
     <div class="inner">
       <NuxtLink v-if="back" :to="back" class="back" aria-label="Back">
         <ChevronLeft :size="22" aria-hidden="true" />
@@ -31,25 +32,29 @@ defineProps<{
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba($color-bg, 0.92);
-  backdrop-filter: blur(8px);
+  margin-bottom: $space-2;
+  background: rgba($color-bg, 0.9);
+  backdrop-filter: blur(12px);
   @include safe-area-top;
 
   .inner {
     display: flex;
     align-items: center;
-    gap: $space-2;
-    min-height: 60px;
-    padding: $space-2 $space-4;
+    gap: $space-3;
+    min-height: 64px;
+    padding: $space-3 $space-4;
+    @include page-width;
   }
 
   .back {
     display: grid;
     place-items: center;
-    width: $tap-target;
-    height: $tap-target;
-    margin-left: -$space-3;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid $color-border;
     border-radius: 50%;
+    background: $color-surface;
     color: $color-navy;
   }
 
@@ -59,14 +64,32 @@ defineProps<{
   }
 
   .title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 800;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .back + .titles .title {
+    font-size: 1.125rem;
   }
 
   .subtitle {
-    font-size: 0.8rem;
+    margin-top: 2px;
+    font-size: 0.8125rem;
     color: $color-text-secondary;
+  }
+
+  @media (min-width: 768px) {
+    .inner {
+      padding-inline: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &.is-wide .inner {
+      max-width: $app-max-width;
+    }
   }
 }
 </style>
