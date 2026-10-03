@@ -42,8 +42,13 @@ export default defineNuxtConfig({
           name: 'description',
           content: 'Susi Air Pilot App: schedule, flight hours and duty limits.',
         },
+        { name: 'apple-mobile-web-app-title', content: 'Susi Pilot' },
       ],
-      link: [{ rel: 'icon', type: 'image/png', href: '/images/logo.png' }],
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/images/logo.png' },
+        { rel: 'manifest', href: '/manifest.webmanifest' },
+        { rel: 'apple-touch-icon', href: '/icons/apple-touch-icon.png' },
+      ],
     },
   },
   vite: {
