@@ -23,16 +23,26 @@ describe('PilotService', () => {
     expect(data.flightHours.pilot.totalFlightHours).toBe(1444.5);
   });
 
+  it('reports the planned hours after today, so flown plus planned equals the seed total', () => {
+    const profile = new PilotService(data, appConfigFor('2026-05-15')).getProfile(PILOT_ACCOUNT.id);
+
+    expect(profile.plannedFlightHours).toBe(59.1);
+    expect(profile.plannedUntil).toBe('2026-05-31');
+    expect(profile.totalFlightHours + profile.plannedFlightHours).toBeCloseTo(1444.5, 5);
+  });
+
   it('matches the seed total once today is past the last day of data', () => {
     const profile = new PilotService(data, appConfigFor('2026-06-30')).getProfile(PILOT_ACCOUNT.id);
 
     expect(profile.totalFlightHours).toBe(1444.5);
+    expect(profile.plannedFlightHours).toBe(0);
   });
 
   it('returns 0 when today is before the first day of data', () => {
     const profile = new PilotService(data, appConfigFor('2024-12-01')).getProfile(PILOT_ACCOUNT.id);
 
     expect(profile.totalFlightHours).toBe(0);
+    expect(profile.plannedFlightHours).toBe(1444.5);
   });
 
   it('rejects an unknown pilot', () => {

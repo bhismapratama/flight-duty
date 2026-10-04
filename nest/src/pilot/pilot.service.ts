@@ -3,6 +3,7 @@ import type { ConfigType } from '@nestjs/config';
 
 import { PILOT_ACCOUNT, appConfig } from '@common';
 import { DataService } from '@infra';
+import { addDays } from '@utils';
 
 import type { PilotProfile } from './interface/index.js';
 
@@ -23,14 +24,17 @@ export class PilotService {
 
     const { pilot } = this.data.flightHours;
     const series = this.data.flightSeries;
+    const { today } = this.app;
 
     return {
       id: PILOT_ACCOUNT.id,
       username: PILOT_ACCOUNT.username,
       name: pilot.name,
-      totalFlightHours: series.sumBetween(series.firstDate, this.app.today),
+      totalFlightHours: series.sumBetween(series.firstDate, today),
+      plannedFlightHours: series.sumBetween(addDays(today, 1), series.lastDate),
+      plannedUntil: series.lastDate,
       avatarUrl: `${this.app.baseUrl}${AVATAR_PATH}`,
-      today: this.app.today,
+      today,
     };
   }
 }
