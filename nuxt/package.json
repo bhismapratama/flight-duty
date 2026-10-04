@@ -1,7 +1,9 @@
 {
   "name": "susi-air-nuxt",
   "version": "0.1.0",
+  "author": "bhismapratama",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "Susi Air Pilot App - web and Android client (Nuxt 3)",
   "engines": {

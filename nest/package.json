@@ -2,9 +2,9 @@
   "name": "susi-air-nest",
   "version": "0.0.1",
   "description": "Susi Air Pilot App - REST API (NestJS)",
-  "author": "",
+  "author": "bhismapratama",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "build": "nest build",
