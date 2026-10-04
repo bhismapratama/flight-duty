@@ -25,6 +25,14 @@ const accountItems = computed<DetailItem[]>(() => {
     { label: 'Username', value: `@${profile.username}` },
     { label: 'Pilot ID', value: profile.id },
     { label: 'Total flight hours', value: `${formatHours(profile.totalFlightHours)} h` },
+    ...(profile.plannedFlightHours > 0
+      ? [
+          {
+            label: 'Planned flight hours',
+            value: `${formatHours(profile.plannedFlightHours)} h to ${formatShortDate(profile.plannedUntil)}`,
+          },
+        ]
+      : []),
   ];
 });
 

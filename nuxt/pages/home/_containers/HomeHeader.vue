@@ -10,6 +10,17 @@ onMounted(() => {
 
 const firstName = computed(() => pilot.profile?.name.split(' ')[0] ?? '');
 
+const planned = computed(() => {
+  const profile = pilot.profile;
+  if (!profile || profile.plannedFlightHours <= 0) {
+    return null;
+  }
+  return {
+    hours: formatHours(profile.plannedFlightHours),
+    until: formatShortDate(profile.plannedUntil),
+  };
+});
+
 const { active, isReady } = useAutoSlides(
   HEADER_SLIDES.map(slide => slide.src),
   HEADER_SLIDE_INTERVAL,
@@ -57,6 +68,9 @@ const slideStyle = (index: number) => {
         <span class="hours-value">{{ formatHours(pilot.profile.totalFlightHours) }}</span>
         <span>total flight hours</span>
       </p>
+      <p v-if="planned" class="planned">
+        <span class="planned-value">+{{ planned.hours }} h</span> planned to {{ planned.until }}
+      </p>
     </div>
 
     <div v-else-if="pilot.status === 'error'" class="identity">
@@ -73,6 +87,7 @@ const slideStyle = (index: number) => {
       <span class="line is-hours">
         <BaseSkeleton width="180px" height="28px" radius="999px" />
       </span>
+      <span class="line is-planned"><BaseSkeleton width="150px" height="12px" /></span>
     </div>
   </header>
 </template>
@@ -164,6 +179,10 @@ const slideStyle = (index: number) => {
       height: 30px;
       margin-top: $space-3;
     }
+
+    &.is-planned {
+      height: 18px;
+    }
   }
 
   .greeting {
@@ -200,6 +219,17 @@ const slideStyle = (index: number) => {
 
   .hours-value {
     font-size: 1.125rem;
+    color: $color-surface;
+    @include numeric;
+  }
+
+  .planned {
+    padding-left: calc(30px + #{$space-2});
+    font-size: 0.75rem;
+    color: rgba($color-surface, 0.7);
+  }
+
+  .planned-value {
     color: $color-surface;
     @include numeric;
   }
