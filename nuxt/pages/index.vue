@@ -1,5 +1,7 @@
 <script setup lang="ts">
-definePageMeta({ redirect: '/home' });
+import { ROUTES } from '~/constants/routes';
+
+definePageMeta({ redirect: ROUTES.home });
 </script>
 
 <template>

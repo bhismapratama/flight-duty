@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { CalendarClock } from '@lucide/vue';
+import { ROUTES } from '~/constants/routes';
 import DutySummary from './_containers/DutySummary.vue';
 
 definePageMeta({
@@ -9,7 +10,7 @@ definePageMeta({
 const route = useRoute();
 const date = computed(() => String(route.params.date));
 const backTo = computed(() => ({
-  path: '/schedule',
+  path: ROUTES.schedule,
   query: { month: formatYearMonth(yearMonthOf(date.value)) },
 }));
 

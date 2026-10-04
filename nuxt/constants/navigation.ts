@@ -1,5 +1,6 @@
 import { BookOpenText, CalendarDays, CircleEllipsis, House } from '@lucide/vue';
 import type { Component } from 'vue';
+import { ROUTES } from './routes';
 
 export interface NavigationItem {
   label: string;
@@ -8,8 +9,8 @@ export interface NavigationItem {
 }
 
 export const BOTTOM_NAVIGATION: NavigationItem[] = [
-  { label: 'Home', to: '/home', icon: House },
-  { label: 'Schedule', to: '/schedule', icon: CalendarDays },
-  { label: 'Logbook', to: '/logbook', icon: BookOpenText },
-  { label: 'More', to: '/more', icon: CircleEllipsis },
+  { label: 'Home', to: ROUTES.home, icon: House },
+  { label: 'Schedule', to: ROUTES.schedule, icon: CalendarDays },
+  { label: 'Logbook', to: ROUTES.logbook, icon: BookOpenText },
+  { label: 'More', to: ROUTES.more, icon: CircleEllipsis },
 ];

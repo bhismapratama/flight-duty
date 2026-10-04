@@ -1,7 +1,5 @@
 import { StatusBar, Style } from '@capacitor/status-bar';
 
-const DARK_HEADER_PATHS = ['/home', '/login'];
-
 function drawsBehindStatusBar(): boolean {
   const inset = getComputedStyle(document.documentElement).getPropertyValue(
     '--safe-area-inset-top',
@@ -13,7 +11,7 @@ export function useStatusBar(): void {
   const route = useRoute();
 
   const apply = () => {
-    const lightIcons = !drawsBehindStatusBar() || DARK_HEADER_PATHS.includes(route.path);
+    const lightIcons = !drawsBehindStatusBar() || route.meta.darkHeader === true;
     StatusBar.setStyle({ style: lightIcons ? Style.Dark : Style.Light }).catch(() => undefined);
   };
 

@@ -1,3 +1,5 @@
+import { ROUTES } from '~/constants/routes';
+
 interface LoginFieldErrors {
   username?: string;
   password?: string;
@@ -26,7 +28,7 @@ export function useLogin() {
     pending.value = true;
     try {
       await auth.login({ username: form.username.trim(), password: form.password });
-      await navigateTo('/home', { replace: true });
+      await navigateTo(ROUTES.home, { replace: true });
     } catch (error) {
       submitError.value =
         getErrorStatus(error) === 401
