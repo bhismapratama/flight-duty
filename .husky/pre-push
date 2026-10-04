@@ -1,0 +1,3 @@
+pnpm --dir nest typecheck
+pnpm --dir nest test
+pnpm --dir nuxt typecheck
