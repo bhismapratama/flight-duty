@@ -1,4 +1,5 @@
 import { ofetch } from 'ofetch';
+import { ROUTES } from '~/constants/routes';
 
 const REQUEST_TIMEOUT_MS = 15_000;
 
@@ -18,7 +19,7 @@ export default defineNuxtPlugin(() => {
     async onResponseError({ response }) {
       if (response.status === 401 && auth.token) {
         await auth.logout();
-        await navigateTo('/login', { replace: true });
+        await navigateTo(ROUTES.login, { replace: true });
       }
     },
   });

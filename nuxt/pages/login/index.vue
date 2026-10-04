@@ -2,7 +2,7 @@
 import { LOGIN_SLIDE_INTERVAL, LOGIN_SLIDES } from '~/constants/login-slides';
 import LoginForm from './_components/LoginForm.vue';
 
-definePageMeta({ layout: 'auth', public: true });
+definePageMeta({ layout: 'auth', public: true, exitOnBack: true, darkHeader: true });
 
 useHead({ title: 'Sign In · Susi Air Pilot' });
 

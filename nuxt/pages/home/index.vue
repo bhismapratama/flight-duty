@@ -3,6 +3,8 @@ import HomeHeader from './_containers/HomeHeader.vue';
 import HoursToLimit from './_containers/HoursToLimit.vue';
 import MyDocuments from './_containers/MyDocuments.vue';
 
+definePageMeta({ exitOnBack: true, darkHeader: true });
+
 useHead({ title: 'Home · Susi Air Pilot' });
 </script>
 

@@ -1,7 +1,6 @@
 import { App } from '@capacitor/app';
 import type { PluginListenerHandle } from '@capacitor/core';
-
-const EXIT_PATHS = ['/home', '/login'];
+import { ROUTES } from '~/constants/routes';
 
 export function useAndroidBackButton(): void {
   const router = useRouter();
@@ -10,12 +9,12 @@ export function useAndroidBackButton(): void {
 
   onMounted(async () => {
     handle = await App.addListener('backButton', ({ canGoBack }) => {
-      if (EXIT_PATHS.includes(route.path)) {
+      if (route.meta.exitOnBack) {
         App.exitApp();
       } else if (canGoBack) {
         router.back();
       } else {
-        router.replace('/home');
+        router.replace(ROUTES.home);
       }
     });
   });

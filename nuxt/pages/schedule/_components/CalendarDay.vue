@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Check } from '@lucide/vue';
+import { ROUTES } from '~/constants/routes';
 import type { ScheduleEntry } from '~/types/entities/schedule';
 
 const props = defineProps<{
@@ -34,7 +35,7 @@ const ariaLabel = computed(() => {
 
 <template>
   <NuxtLink
-    :to="`/schedule/${date}`"
+    :to="`${ROUTES.schedule}/${date}`"
     class="calendar-day"
     :class="{ 'is-duty': entry, 'is-today': isToday }"
     :style="style"

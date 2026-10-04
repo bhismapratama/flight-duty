@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { FileText, LogOut } from '@lucide/vue';
+import { ROUTES } from '~/constants/routes';
 import DetailList, { type DetailItem } from './_components/DetailList.vue';
 import DetailListSkeleton from './_components/DetailListSkeleton.vue';
 import MenuRow from './_components/MenuRow.vue';
@@ -45,7 +46,7 @@ const appItems = computed<DetailItem[]>(() => [
 async function signOut(): Promise<void> {
   signingOut.value = true;
   await auth.logout();
-  await navigateTo('/login', { replace: true });
+  await navigateTo(ROUTES.login, { replace: true });
 }
 </script>
 
@@ -97,7 +98,11 @@ async function signOut(): Promise<void> {
 
       <BaseCard class="menu">
         <ul>
-          <MenuRow :icon="FileText" label="My documents" to="/home#my-documents-title" />
+          <MenuRow
+            :icon="FileText"
+            label="My documents"
+            :to="`${ROUTES.home}#my-documents-title`"
+          />
           <MenuRow :icon="LogOut" label="Sign Out" danger :loading="signingOut" @click="signOut" />
         </ul>
       </BaseCard>

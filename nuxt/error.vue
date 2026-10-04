@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
+import { ROUTES } from '~/constants/routes';
 
 const props = defineProps<{ error: NuxtError }>();
 
@@ -7,7 +8,7 @@ const isNotFound = computed(() => props.error.statusCode === 404);
 
 useHead({ title: isNotFound.value ? 'Page not found' : 'Error' });
 
-const goHome = () => clearError({ redirect: '/home' });
+const goHome = () => clearError({ redirect: ROUTES.home });
 </script>
 
 <template>
