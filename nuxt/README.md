@@ -91,7 +91,7 @@ Route-specific code sits next to its page in folders that start with `_`. A `pag
 Requires Android Studio. Its bundled JDK 21 is found automatically, and the SDK is read from `ANDROID_HOME`.
 
 ```bash
-echo "NUXT_PUBLIC_API_BASE=https://api.pilot.<domain>" > .env.production
+echo "NUXT_PUBLIC_API_BASE=https://api.bhismapratama.it.com" > .env.production
 pnpm android        # or pnpm android:apk for the file only
 ```
 
