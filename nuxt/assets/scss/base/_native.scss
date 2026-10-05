@@ -1,0 +1,8 @@
+.is-native,
+.is-native * {
+  scrollbar-width: none;
+}
+
+.is-native ::-webkit-scrollbar {
+  display: none;
+}

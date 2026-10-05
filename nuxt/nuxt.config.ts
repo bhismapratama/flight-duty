@@ -45,7 +45,7 @@ export default defineNuxtConfig({
         { name: 'apple-mobile-web-app-title', content: 'Susi Pilot' },
       ],
       link: [
-        { rel: 'icon', type: 'image/png', href: '/images/logo.png' },
+        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
         { rel: 'manifest', href: '/manifest.webmanifest' },
         { rel: 'apple-touch-icon', href: '/icons/apple-touch-icon.png' },
       ],

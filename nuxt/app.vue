@@ -1,7 +1,9 @@
 <script setup lang="ts">
 if (isNativePlatform()) {
+  useHead({ htmlAttrs: { class: 'is-native' } });
   useAndroidBackButton();
   useStatusBar();
+  useSplashScreen();
 }
 </script>
 
