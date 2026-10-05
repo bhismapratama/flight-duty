@@ -2,12 +2,12 @@
 
 A small pilot app. Pilots can sign in, see how close they are to their duty limits, check document expiry, and browse their monthly schedule.
 
-|                 |                                                                                               |
-| --------------- | --------------------------------------------------------------------------------------------- |
-| Frontend (live) | _to be added after deployment_ (Cloudflare Workers)                                           |
-| API (live)      | _to be added after deployment_ (Docker on a VPS behind Cloudflare Tunnel, Swagger at `/docs`) |
-| Demo account    | `johndoe` / `susiairtest`                                                                     |
-| "Today"         | Fixed to **15 May 2026**, as the brief requires                                               |
+|                 |                                                                                                                               |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Frontend (live) | https://bhismapratama.it.com (Cloudflare Workers)                                                                             |
+| API (live)      | https://api.bhismapratama.it.com (Docker on a VPS behind Cloudflare Tunnel), Swagger at https://api.bhismapratama.it.com/docs |
+| Demo account    | `johndoe` / `susiairtest`                                                                                                     |
+| "Today"         | Fixed to **15 May 2026**, as the brief requires                                                                               |
 
 | Folder          | Stack                                                                                             | README                           |
 | --------------- | ------------------------------------------------------------------------------------------------- | -------------------------------- |
