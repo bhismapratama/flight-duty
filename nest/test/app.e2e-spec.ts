@@ -6,7 +6,7 @@ import type { App } from 'supertest/types.js';
 import { AppModule } from '../src/app.module.js';
 import { configureApp } from '../src/app.setup.js';
 
-describe('Susi Air API (e2e)', () => {
+describe('Flight Duty API (e2e)', () => {
   let app: INestApplication<App>;
   let token: string;
 

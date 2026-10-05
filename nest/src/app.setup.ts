@@ -28,7 +28,7 @@ export function configureApp(app: INestApplication): void {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   const swagger = new DocumentBuilder()
-    .setTitle('Susi Air Pilot API')
+    .setTitle('Flight Duty API')
     .setDescription(`Pilot app API. "Today" is fixed to ${config.today}.`)
     .setVersion('1.0')
     .addBearerAuth()
