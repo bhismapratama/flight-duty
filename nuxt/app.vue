@@ -2,6 +2,7 @@
 if (isNativePlatform()) {
   useAndroidBackButton();
   useStatusBar();
+  useSplashScreen();
 }
 </script>
 

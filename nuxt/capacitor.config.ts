@@ -12,6 +12,12 @@ const config: CapacitorConfig = {
     allowMixedContent: allowLocalHttpApi,
   },
   plugins: {
+    SplashScreen: {
+      launchAutoHide: true,
+      launchShowDuration: 3000,
+      launchFadeOutDuration: 0,
+      backgroundColor: '#FFFFFF',
+    },
     SystemBars: {
       insetsHandling: 'css',
       initialViewportFitValueHint: 'cover',
